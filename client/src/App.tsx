@@ -1,14 +1,19 @@
-import { Button, Input } from "antd";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ThemeProvider from "./theme";
+import LoginPage from "./pages/auth/login/login";
+import RegisterPage from "./pages/auth/register/register";
+import HomePage from "./pages/private/home/home";
+
 function App() {
   return (
     <ThemeProvider>
-      <div className="h-screen flex justify-center items-center flex-col p-5 gap-5">
-        <h1 className="text-gray-600 text-3xl">Homepage</h1>
-
-        <Button type="primary">Primary Button</Button>
-        <Input placeholder="enter text" />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
