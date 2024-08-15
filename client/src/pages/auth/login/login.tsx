@@ -1,10 +1,25 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import WelcomeContent from "../common/welcome-content";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../../api-services/user-service";
+import Cookies from "js-cookie";
+import { useState } from "react";
 
 const LoginPage = () => {
-  const onFinish = (values: never) => {
-    console.log(values);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const onFinish = async (values: never) => {
+    try {
+      setLoading(true);
+      const response = await loginUser(values);
+      message.success(response.message);
+      Cookies.set("token", response.token);
+      navigate("/");
+    } catch (error: any) {
+      message.error(error.response?.data.message || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -36,10 +51,10 @@ const LoginPage = () => {
             required
             rules={[{ required: true }]}
           >
-            <Input placeholder="Password" />
+            <Input.Password placeholder="Password" />
           </Form.Item>
 
-          <Button type="primary" htmlType="submit" block>
+          <Button type="primary" htmlType="submit" block loading={loading}>
             Login{" "}
           </Button>
 
