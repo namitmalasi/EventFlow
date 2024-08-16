@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const onFinish = async (values: never) => {
-    try {
+    try { 
       setLoading(true);
       const response = await loginUser(values);
       message.success(response.message);
