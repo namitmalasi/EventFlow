@@ -20,7 +20,7 @@ const HomePage = () => {
     getData();
   }, []);
   return (
-    <div className="p-5">
+    <div>
       <h1>HomePage</h1>
       <p>Welcome, {currentUser?.name}</p>
     </div>
