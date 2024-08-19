@@ -1,9 +1,10 @@
+import { UserType } from "../../interfaces";
 import MenuItems from "./menu-items";
 
-const Sidebar = () => {
+const Sidebar = ({ user }: { user: UserType }) => {
   return (
     <div className="w-60 h-full">
-      <MenuItems />
+      <MenuItems user={user} />
     </div>
   );
 };
