@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { UserType } from "../../interfaces";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { message } from "antd";
 
 const MenuItems = ({ user }: { user: UserType }) => {
   const iconSize = 16;
@@ -80,8 +82,14 @@ const MenuItems = ({ user }: { user: UserType }) => {
   ];
 
   const menuToRender = user.isAdmin ? adminMenu : userMenu;
+
+  const onLogout = () => {
+    Cookies.remove("token");
+    navigate("/login");
+    message.success("Logged Out successfully");
+  };
   return (
-    <div className="bg-gray-200 h-full p-5">
+    <div className="lg:bg-gray-200 h-full p-5 w-full">
       <div className="flex flex-col gap-1 mt-5">
         <h1 className="text-2xl font-bold text-info">
           Event<b className="text-primary font-bold pl-2">Flow</b>
@@ -96,7 +104,13 @@ const MenuItems = ({ user }: { user: UserType }) => {
               item.isActive ? "bg-info text-white" : ""
             }`}
             key={item.name}
-            onClick={() => navigate(item.path)}
+            onClick={() => {
+              if (item.name === "Logout") {
+                onLogout();
+              } else {
+                navigate(item.path);
+              }
+            }}
           >
             <span>{item.icon}</span>
             <span>{item.name}</span>
