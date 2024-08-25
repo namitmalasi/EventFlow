@@ -81,7 +81,7 @@ const General = ({
         <Button onClick={() => navigate("/admin/events")}>Back</Button>
         <Button
           disabled={
-            !eventData.name || !eventData.description || eventData.organizer
+            !eventData.name || !eventData.description || !eventData.organizer
           }
           type="primary"
           onClick={() => setCurrentStep(currentStep + 1)}

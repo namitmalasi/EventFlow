@@ -31,7 +31,7 @@ const PrivateLayout = ({ children }: { children: React.ReactNode }) => {
     user && (
       <div className="flex lg:flex-row flex-col gap-5 h-screen">
         <Sidebar user={user} />
-        <div className="flex-1 px-2 lg:mt-10 pb-10">{children}</div>
+        <div className="flex-1 px-5 lg:mt-10 pb-10">{children}</div>
       </div>
     )
   );
