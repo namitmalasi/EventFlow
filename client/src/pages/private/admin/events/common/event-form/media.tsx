@@ -1,5 +1,59 @@
-const Media = () => {
-  return <div>Media</div>;
+import { Button, Upload } from "antd";
+import { EventFormStepsProps } from "./event-form";
+
+const Media = ({
+  currentStep,
+  setCurrentStep,
+  selectedMediaFiles,
+  setSelectedMediaFiles,
+}: EventFormStepsProps) => {
+  const onSelectedMediaRemove = (index: number) => {
+    const existingMedia = [...selectedMediaFiles];
+    const newMedia = existingMedia.filter((_, i) => i !== index);
+    setSelectedMediaFiles(newMedia);
+  };
+  return (
+    <div>
+      <Upload
+        listType="picture-card"
+        beforeUpload={(file) => {
+          setSelectedMediaFiles((prev: any) => [...prev, file]);
+          return false;
+        }}
+        multiple
+        showUploadList={false}
+      >
+        <span className="text-gray-500 text-xs">Click here to upload</span>
+      </Upload>
+
+      <div className="flex flex-wrap gap-5 mt-5">
+        {selectedMediaFiles.map((file: any, index: number) => (
+          <div
+            className="border p-3 border-solid border-gray-200 flex flex-col gap-5"
+            key={file.name}
+          >
+            <img
+              src={URL.createObjectURL(file)}
+              alt="media"
+              className="w-40 h-40"
+            />
+            <span
+              className="underline text-center text-sm cursor-pointer"
+              onClick={() => onSelectedMediaRemove(index)}
+            >
+              Remove
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-between col-span-3">
+        <Button onClick={() => setCurrentStep(currentStep - 1)}>Back</Button>
+        <Button type="primary" onClick={() => setCurrentStep(currentStep + 1)}>
+          Next
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 export default Media;
