@@ -42,7 +42,7 @@ const EventForm = () => {
     },
     {
       name: "Tickets",
-      component: <Tickets />,
+      component: <Tickets {...commonProps} />,
     },
   ];
   return (
