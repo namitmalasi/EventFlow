@@ -42,9 +42,8 @@ const LocationAndDate = ({
           placeholder="Date"
           value={eventData.date}
           type="date"
-          onChange={() =>
-            setEventData({ ...eventData, date: eventData.target.value })
-          }
+          onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
+          min={new Date().toISOString().split("T")[0]}
         />
       </Form.Item>
 
@@ -53,9 +52,7 @@ const LocationAndDate = ({
           placeholder="Time"
           value={eventData.time}
           type="time"
-          onChange={() =>
-            setEventData({ ...eventData, time: eventData.target.value })
-          }
+          onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
         />
       </Form.Item>
 

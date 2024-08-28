@@ -28,6 +28,7 @@ const EventForm = () => {
 
   const onFinish = async () => {
     try {
+      setLoading(true);
       const [...urls] = await Promise.all(
         selectedMediaFiles.map(async (file: any) => {
           return await uploadFileAndReturnUrl(file);
@@ -40,6 +41,8 @@ const EventForm = () => {
       navigate("/admin/events");
     } catch (error: any) {
       message.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,7 +79,12 @@ const EventForm = () => {
     <Form layout="vertical">
       <Steps current={currentStep} onChange={(step) => setCurrentStep(step)}>
         {stepsData.map((step, index) => (
-          <Steps.Step key={index} title={step.name} />
+          <Steps.Step
+            key={index}
+            title={step.name}
+            className="text-xs"
+            disabled={index > currentStep}
+          />  
         ))}
       </Steps>
 
