@@ -6,6 +6,8 @@ const Tickets = ({
   setCurrentStep,
   eventData,
   setEventData,
+  loading,
+  onFinish,
 }: EventFormStepsProps) => {
   const onAddTicketType = () => {
     const newTicketType = eventData.ticketTypes || [];
@@ -102,8 +104,18 @@ const Tickets = ({
       )}
 
       <div className="flex justify-between col-span-3">
-        <Button onClick={() => setCurrentStep(currentStep - 1)}>Back</Button>
-        <Button type="primary" onClick={() => {}}>
+        <Button
+          onClick={() => setCurrentStep(currentStep - 1)}
+          disabled={loading}
+        >
+          Back
+        </Button>
+        <Button
+          type="primary"
+          onClick={onFinish}
+          disabled={loading}
+          loading={loading}
+        >
           Save and Finish
         </Button>
       </div>
