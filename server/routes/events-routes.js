@@ -40,7 +40,7 @@ router.delete("delete-event/:id", validateToken, async (req, res) => {
 router.get("/get-events", validateToken, async (req, res) => {
   try {
     const events = await EventModel.find();
-    return json({ data: events });
+    return res.json({ data: events });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
