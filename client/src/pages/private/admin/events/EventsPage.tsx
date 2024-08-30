@@ -3,10 +3,8 @@ import PageTitle from "../../../../components/page-title";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEvents } from "../../../../api-services/events-service";
-import {
-  getDateFormat,
-  getDateTimeFormat,
-} from "../../../../helpers/date-time-format";
+import { getDateTimeFormat } from "../../../../helpers/date-time-format";
+import { Pen, Trash2 } from "lucide-react";
 
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -56,6 +54,23 @@ const EventsPage = () => {
       render: (date: any) => {
         return getDateTimeFormat(date);
       },
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (text: any, record: any) => {
+        return (
+          <div className="flex gap-5">
+            <Trash2 className="cursor-pointer text-red-700" size={16} />
+            <Pen
+              className="cursor-pointer text-yellow-700"
+              size={16}
+              onClick={() => navigate(`/admin/events/edit/${record._id}`)}
+            />
+          </div>
+        );
+      },
+      key: "actions",
     },
   ];
 
