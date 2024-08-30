@@ -3,6 +3,10 @@ import PageTitle from "../../../../components/page-title";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEvents } from "../../../../api-services/events-service";
+import {
+  getDateFormat,
+  getDateTimeFormat,
+} from "../../../../helpers/date-time-format";
 
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -36,7 +40,7 @@ const EventsPage = () => {
       title: "Date & Time",
       dataIndex: "date",
       render: (date: any, row: any) => {
-        return `${date} ${row.time}`;
+        return getDateTimeFormat(`${date} ${row.time}`);
       },
       key: "date",
     },
@@ -49,6 +53,9 @@ const EventsPage = () => {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
+      render: (date: any) => {
+        return getDateTimeFormat(date);
+      },
     },
   ];
 
