@@ -43,7 +43,7 @@ const eventSchema = new mongoose.Schema(
       required: false,
       default: [],
     },
-    tickets: {
+    ticketTypes: {
       type: Array,
       required: false,
       default: [],

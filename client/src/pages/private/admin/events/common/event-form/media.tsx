@@ -6,11 +6,19 @@ const Media = ({
   setCurrentStep,
   selectedMediaFiles,
   setSelectedMediaFiles,
+  eventData,
+  setEventData,
 }: EventFormStepsProps) => {
   const onSelectedMediaRemove = (index: number) => {
     const existingMedia = [...selectedMediaFiles];
     const newMedia = existingMedia.filter((_, i) => i !== index);
     setSelectedMediaFiles(newMedia);
+  };
+
+  const onAlreadyUploadedMediaRemove = (index: number) => {
+    const existingMediaFiles = [...eventData.media];
+    const newMediaFiles = existingMediaFiles.filter((_, i) => i !== index);
+    setEventData({ ...eventData, media: newMediaFiles });
   };
   return (
     <div>
@@ -40,6 +48,23 @@ const Media = ({
             <span
               className="underline text-center text-sm cursor-pointer"
               onClick={() => onSelectedMediaRemove(index)}
+            >
+              Remove
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-5 mt-5">
+        {eventData?.media?.map((url: any, index: number) => (
+          <div
+            className="border p-3 border-solid border-gray-200 flex flex-col gap-5"
+            key={url}
+          >
+            <img src={url} alt="media" className="w-40 h-40" />
+            <span
+              className="underline text-center text-sm cursor-pointer"
+              onClick={() => onAlreadyUploadedMediaRemove(index)}
             >
               Remove
             </span>

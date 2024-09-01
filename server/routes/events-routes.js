@@ -50,7 +50,7 @@ router.get("/get-events", validateToken, async (req, res) => {
 router.get("/get-event/:id", validateToken, async (req, res) => {
   try {
     const event = await EventModel.findById(req.params.id);
-    return json({ data: event });
+    return res.json({ data: event });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
