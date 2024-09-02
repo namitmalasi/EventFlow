@@ -40,16 +40,13 @@ const EventForm = ({
     try {
       setLoading(true);
 
-      if (!eventData.media) {
-        eventData.media = [];
-      }
       const [...urls] = await Promise.all(
         selectedMediaFiles.map(async (file: any) => {
           return await uploadFileAndReturnUrl(file);
         })
       );
 
-      eventData.media = [...eventData.media, ...urls];
+      eventData.media = [...(eventData?.media || []), ...urls];
 
       if (type === "edit") {
         await updateEvent(params.id, eventData);
