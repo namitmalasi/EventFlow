@@ -4,9 +4,14 @@ import { getCurrentUser } from "../../../api-services/user-service";
 import usersGlobalStore, { UsersStoreType } from "../../../store/users-store";
 import { getEvents } from "../../../api-services/events-service";
 import EventCard from "./common/event-card";
+import Filters from "./common/filters";
 
 const HomePage = () => {
   const [events, setEvents] = useState([]);
+  const [filters, setFilters] = useState({
+    searchText: "",
+    date: "",
+  });
   const [loading, setloading] = useState(false);
   const { currentUser, setCurrentUser }: UsersStoreType =
     usersGlobalStore() as UsersStoreType;
@@ -38,7 +43,9 @@ const HomePage = () => {
   return (
     <div>
       <p>Welcome, {currentUser?.name}</p>
-      <div className="flex flex-col gap-7">
+
+      <Filters filters={filters} setFilters={setFilters} onFilter={getData} />
+      <div className="flex flex-col gap-7 mt-7">
         {events.map((event: any) => {
           return <EventCard key={event.id} event={event} />;
         })}
