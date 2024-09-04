@@ -30,8 +30,10 @@ const Filters = ({
 
       <div className="flex gap-5">
         <Button
-          onClick={() => setFilters({ searchText: "", date: "" })}
-          disabled={!filters.searchText && !filters.date}
+          onClick={() => {
+            setFilters({ searchText: "", date: "" });
+            onFilter({ searchText: "", date: "" });
+          }}
         >
           Clear Filters
         </Button>

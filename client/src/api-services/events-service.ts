@@ -5,8 +5,10 @@ export const createEvent = async (data: any) => {
   return response.data;
 };
 
-export const getEvents = async () => {
-  const response: any = await axios.get("/api/events/get-events");
+export const getEvents = async (filters: any) => {
+  const response: any = await axios.get(
+    `/api/events/get-events?searchText=${filters.searchText}&date=${filters.date}`
+  );
   return response.data;
 };
 

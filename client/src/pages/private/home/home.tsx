@@ -13,13 +13,12 @@ const HomePage = () => {
     date: "",
   });
   const [loading, setloading] = useState(false);
-  const { currentUser, setCurrentUser }: UsersStoreType =
-    usersGlobalStore() as UsersStoreType;
+  const { currentUser, setCurrentUser } = usersGlobalStore() as UsersStoreType;
 
-  const getData = async () => {
+  const getData = async (filterObj: any) => {
     try {
       setloading(true);
-      const response = await getEvents();
+      const response = await getEvents(filterObj);
       setEvents(response.data);
     } catch (error: any) {
       message.error(error);
@@ -28,17 +27,18 @@ const HomePage = () => {
     }
   };
 
-  // const getData = async () => {
-  //   try {
-  //     const response = await getCurrentUser();
-  //     setCurrentUser(response.data);
-  //   } catch (error: any) {
-  //     message.error(error.response.data.message || error.message);
-  //   }
-  // };
+  const getUserData = async () => {
+    try {
+      const response = await getCurrentUser();
+      setCurrentUser(response.data);
+    } catch (error: any) {
+      message.error(error.response.data.message || error.message);
+    }
+  };
 
   useEffect(() => {
-    getData();
+    getUserData();
+    getData({ searchText: "", date: "" });
   }, []);
   return (
     <div>
