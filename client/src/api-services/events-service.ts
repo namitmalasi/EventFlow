@@ -7,9 +7,9 @@ export const createEvent = async (data: any) => {
 
 export const getEvents = async (filters: any) => {
   const response: any = await axios.get(
-    `/api/events/get-events?searchText=${filters.searchText}&date=${filters.date}`
+    `/api/events/get-events?searchText=${filters.searchText}&date=${filters .date}`
   );
-  return response.data;
+  return response.data; 
 };
 
 export const getEventById = async (id: string) => {

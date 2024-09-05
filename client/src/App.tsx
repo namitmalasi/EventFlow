@@ -9,6 +9,7 @@ import PrivateLayout from "./layout/private-layout";
 import EventsPage from "./pages/private/admin/events/EventsPage";
 import CreateEventPage from "./pages/private/admin/events/create/createEventPage";
 import EditEventPage from "./pages/private/admin/events/edit/editEventPage";
+import EventInfoPage from "./pages/private/event/event-info-page";
 
 function App() {
   return (
@@ -39,6 +40,16 @@ function App() {
               </PrivateLayout>
             }
           />
+
+          <Route
+            path="/event/:id"
+            element={
+              <PrivateLayout>
+                <EventInfoPage />
+              </PrivateLayout>
+            }
+          />
+
           <Route
             path="/profile"
             element={
