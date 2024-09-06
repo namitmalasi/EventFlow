@@ -9,6 +9,7 @@ import {
   getDateFormat,
   getDateTimeFormat,
 } from "../../../helpers/date-time-format";
+import TicketsSelection from "./common/tickets-selection";
 
 const EventInfoPage = () => {
   const [eventData, setEventData] = useState<EventType | null>();
@@ -95,6 +96,10 @@ const EventInfoPage = () => {
           <div className="col-span-3">
             {renderEventProperty("Guests", eventData.guests.join(", "))}
           </div>
+        </div>
+
+        <div className="mt-5">
+          <TicketsSelection eventData={eventData} />
         </div>
       </div>
     )

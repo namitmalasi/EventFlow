@@ -5,6 +5,7 @@ import usersGlobalStore, { UsersStoreType } from "../../../store/users-store";
 import { getEvents } from "../../../api-services/events-service";
 import EventCard from "./common/event-card";
 import Filters from "./common/filters";
+import Spinner from "../../../components/spinner";
 
 const HomePage = () => {
   const [events, setEvents] = useState([]);
@@ -35,12 +36,19 @@ const HomePage = () => {
       message.error(error.response.data.message || error.message);
     }
   };
-  
 
   useEffect(() => {
     getUserData();
     getData({ searchText: "", date: "" });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex h-screen justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div>
       <p>Welcome, {currentUser?.name}</p>
