@@ -41,7 +41,6 @@ const HomePage = () => {
     getUserData();
     getData({ searchText: "", date: "" });
   }, []);
-
   if (loading) {
     return (
       <div className="flex h-screen justify-center items-center">
