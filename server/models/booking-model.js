@@ -31,12 +31,12 @@ const bookingSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: "booked",
+      default: "booked", 
     },
   },
   { timestamps: true }
 );
 
-const BookingModel = mongoose.modelodel("bookings", bookingSchema);
+const BookingModel = mongoose.model("bookings", bookingSchema);
 
 module.exports = BookingModel;

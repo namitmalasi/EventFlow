@@ -13,6 +13,7 @@ app.use(cookieParser());
 app.use("/api/users", require("./routes/users-routes"));
 app.use("/api/events", require("./routes/events-routes"));
 app.use("/api/payments", require("./routes/payments-route"));
+app.use("/api/bookings", require("./routes/bookings-route"));
 
 const port = process.env.port || 5000;
 
