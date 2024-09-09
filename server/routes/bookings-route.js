@@ -16,10 +16,10 @@ router.post("/create-booking", validateToken, async (req, res) => {
     const updatedTicketTypes = ticketTypes.map((ticketType) => {
       if (ticketType.name === req.body.ticketType) {
         ticketType.booked =
-          Number(ticketType.booked || 0) + Number(req.body.ticketsCount);
+          Number(ticketType.booked ?? 0) + Number(req.body.ticketsCount);
 
         ticketType.available =
-          Number(ticketType.available || ticketType.limit) -
+          Number(ticketType.available ?? ticketType.limit) -
           Number(req.body.ticketsCount);
       }
       return ticketType;

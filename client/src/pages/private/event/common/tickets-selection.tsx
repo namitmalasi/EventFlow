@@ -42,6 +42,7 @@ const TicketsSelection = ({ eventData }: { eventData: EventType }) => {
 
         <div className="flex flex-wrap gap-5 mt-3">
           {ticketTypes.map((ticketType, index) => {
+            const available = ticketType.available ?? ticketType.limit;
             return (
               <div
                 key={index}
@@ -52,31 +53,39 @@ const TicketsSelection = ({ eventData }: { eventData: EventType }) => {
                 }`}
                 onClick={() => {
                   setSelectedTicketType(ticketType.name);
-                  setMaxCount(ticketType.limit);
+                  setMaxCount(available);
                 }}
               >
                 <h1 className="text-sm text-gray-700">{ticketType.name}</h1>
                 <div className="flex justify-between">
                   <h1 className="text-sm font-bold">$ {ticketType.price}</h1>
-                  <h1 className="text-xs">{ticketType.limit} Left</h1>
+                  <h1 className="text-xs">{available} Left</h1>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <h1 className="text-info text-sm font-bold mt-10">
-          Select Ticket Count
-        </h1>
+        <div className="flex flex-col gap-1">
+          <h1 className="text-info text-sm font-bold mt-10">
+            Select Ticket Count
+          </h1>
 
-        <Input
-          className="w-96"
-          type="number"
-          value={selectedTicketCount}
-          onChange={(e) => setSelectedTicketCount(parseInt(e.target.value))}
-          min={1}
-          max={maxCount}
-        />
+          <Input
+            className="w-96"
+            type="number"
+            value={selectedTicketCount}
+            onChange={(e) => setSelectedTicketCount(parseInt(e.target.value))}
+            min={1}
+            max={maxCount}
+          />
+
+          <span className="text-gray-600 text-sm mt-2 font-bold">
+            {selectedTicketCount > maxCount
+              ? `Only ${maxCount} tickets available`
+              : ""}
+          </span>
+        </div>
 
         <div className="mt-7 flex justify-between items-center bg-gray-200 border border-solid p-3">
           <h1 className="text-xl text-gray-500 font-bold">
@@ -85,7 +94,12 @@ const TicketsSelection = ({ eventData }: { eventData: EventType }) => {
           <Button
             type="primary"
             onClick={() => getClientSecretAndOpenPymentModal()}
-            disabled={!seletctedTicketType || !selectedTicketCount || loading}
+            disabled={
+              !seletctedTicketType ||
+              !selectedTicketCount ||
+              loading ||
+              selectedTicketCount > maxCount
+            }
             loading={loading}
           >
             Book Now
