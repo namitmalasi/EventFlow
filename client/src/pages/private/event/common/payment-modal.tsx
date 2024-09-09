@@ -7,6 +7,8 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import { createBooking } from "../../../../api-services/booking-service";
+import { useNavigate } from "react-router-dom";
 
 const PaymentModal = ({
   showPaymentModal,
@@ -26,11 +28,12 @@ const PaymentModal = ({
   const [loading, setLoading] = useState<boolean>(false);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (e: any) => {
     try {
       setLoading(true);
-      event.preventDefault();
+      e.preventDefault();
 
       if (!stripe || !elements) {
         return;
@@ -48,6 +51,17 @@ const PaymentModal = ({
         message.error(result.error.message);
       } else {
         message.success("Payment successful");
+        const bookingPayload = {
+          event: event._id,
+          ticketType: selectedTicketType,
+          ticketsCount: selectedTicketsCount,
+          ticketsAmount: totalAmount,
+          paymentId: result.paymentIntent.id,
+          status: "booked",
+        };
+        await createBooking(bookingPayload);
+        message.success("Booking successful");
+        navigate("/profile/bookings");
         setShowPaymentModal(false);
       }
     } catch (error: any) {
