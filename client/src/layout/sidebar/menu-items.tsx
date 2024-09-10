@@ -34,7 +34,7 @@ const MenuItems = ({ user }: { user: UserType }) => {
     },
     {
       name: "Booking",
-      path: "/bookings",
+      path: "/profile/bookings",
       icon: <List size={iconSize} />,
       isActive: currentPath === "/bookings",
     },

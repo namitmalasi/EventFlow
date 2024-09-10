@@ -37,4 +37,16 @@ router.post("/create-booking", validateToken, async (req, res) => {
   }
 });
 
+router.get("/get-user-bookings", validateToken, async (req, res) => {
+  try {
+    const bookings = await BookingModel.find({ user: req.user._id }).populate(
+      "event"
+    );
+
+    return res.status(200).json({ data: bookings });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

@@ -83,7 +83,7 @@ const TicketsSelection = ({ eventData }: { eventData: EventType }) => {
           <span className="text-gray-600 text-sm mt-2 font-bold">
             {selectedTicketCount > maxCount
               ? `Only ${maxCount} tickets available`
-              : ""}
+              : ""} 
           </span>
         </div>
 
