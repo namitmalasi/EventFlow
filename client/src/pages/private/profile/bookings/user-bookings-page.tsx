@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import PageTitle from "../../../../components/page-title";
 import { BookingType } from "../../../../interfaces";
-import { message, Table } from "antd";
-import { getUserBookings } from "../../../../api-services/booking-service";
+import { message, Popconfirm, Table } from "antd";
+import {
+  cancelBooking,
+  getUserBookings,
+} from "../../../../api-services/booking-service";
 import { getDateTimeFormat } from "../../../../helpers/date-time-format";
 
 const UserBookingspage = () => {
@@ -24,6 +27,26 @@ const UserBookingspage = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const onCancelBooking = async (booking: BookingType) => {
+    try {
+      setLoading(true);
+      const payload = {
+        eventId: booking.event._id,
+        bookingId: booking._id,
+        paymentId: booking.paymentId,
+        ticketsCount: booking.ticketsCount,
+        ticketTypeName: booking.ticketType,
+      };
+      await cancelBooking(payload);
+      message.success("Booking cancelled successfully");
+      getData();
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const columns = [
     {
@@ -71,9 +94,16 @@ const UserBookingspage = () => {
       render: (record: BookingType) => {
         if (record.status === "booked") {
           return (
-            <span className="text-gray-600 cursor-pointer underline text-sm">
-              Cancel
-            </span>
+            <Popconfirm
+              title="Are you sure you want to cancel this booking?"
+              onConfirm={() => onCancelBooking(record)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <span className="text-gray-600 cursor-pointer underline text-sm">
+                Cancel
+              </span>
+            </Popconfirm>
           );
         } else {
           return "";
