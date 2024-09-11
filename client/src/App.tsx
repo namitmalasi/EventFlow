@@ -11,6 +11,7 @@ import CreateEventPage from "./pages/private/admin/events/create/createEventPage
 import EditEventPage from "./pages/private/admin/events/edit/editEventPage";
 import EventInfoPage from "./pages/private/event/event-info-page";
 import UserBookingspage from "./pages/private/profile/bookings/user-bookings-page";
+import AdminBookings from "./pages/private/admin/bookings/admin-bookings";
 
 function App() {
   return (
@@ -90,6 +91,14 @@ function App() {
             element={
               <PrivateLayout>
                 <EditEventPage />
+              </PrivateLayout>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <PrivateLayout>
+                <AdminBookings />
               </PrivateLayout>
             }
           />

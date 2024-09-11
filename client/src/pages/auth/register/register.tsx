@@ -11,7 +11,7 @@ const RegisterPage = () => {
     try {
       setLoading(true);
       const response = await registerUser(values);
-      message.success(response.message);
+      message.success(response.message);  
       navigate("/login");
     } catch (error: any) {
       message.error(error.response?.data.message || error.message);

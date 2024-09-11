@@ -10,6 +10,10 @@ export const getUserBookings = async () => {
   return response.data;
 };
 
+export const getAllBookings = async () => {
+  const response = await axios.get("/api/bookings/get-all-bookings");
+  return response.data;
+};
 export const cancelBooking = async (data: any) => {
   const response = await axios.post("/api/bookings/cancel-booking", data);
   return response.data;
