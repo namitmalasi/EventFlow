@@ -4,6 +4,7 @@ const User = require("../models/user-model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../middlewares/validate-token");
+const UserModel = require("../models/user-model");
 
 // user registration
 router.post("/register", async (req, res) => {
@@ -56,6 +57,20 @@ router.get("/current-user", validateToken, async (req, res) => {
     return res
       .status(200)
       .json({ data: user, message: "user data fetched successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/get-all-users", validateToken, async (req, res) => {
+  try {
+    const users = await UserModel.find()
+      .select("-password")
+      .sort({ createdAt: -1 });
+
+    return res
+      .status(200)
+      .json({ data: users, message: "Users fetched successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -68,7 +68,7 @@ const MenuItems = ({ user }: { user: UserType }) => {
     },
     {
       name: "Users",
-      path: "/admin/reports",
+      path: "/admin/users",
       icon: <UsersRound size={iconSize} />,
       isActive: currentPath.includes("/admin/users"),
     },
