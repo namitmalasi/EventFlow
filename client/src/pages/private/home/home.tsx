@@ -6,6 +6,7 @@ import { getEvents } from "../../../api-services/events-service";
 import EventCard from "./common/event-card";
 import Filters from "./common/filters";
 import Spinner from "../../../components/spinner";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [events, setEvents] = useState([]);
@@ -15,6 +16,9 @@ const HomePage = () => {
   });
   const [loading, setloading] = useState(false);
   const { currentUser, setCurrentUser } = usersGlobalStore() as UsersStoreType;
+
+  const navigate = useNavigate();
+  let isActive = true;
 
   const getData = async (filterObj: any) => {
     try {
@@ -31,6 +35,11 @@ const HomePage = () => {
   const getUserData = async () => {
     try {
       const response = await getCurrentUser();
+      isActive = response.data.isActive;
+      if (!isActive) {
+        message.error("Your account has been blocked. Please contact support.");
+        navigate("/login");
+      }
       setCurrentUser(response.data);
     } catch (error: any) {
       message.error(error.response.data.message || error.message);
@@ -50,13 +59,16 @@ const HomePage = () => {
   }
   return (
     <div>
-      <p>Welcome, {currentUser?.name}</p>
+      <p className="text-gray-600 text-xl font-bold">
+        Welcome, {currentUser?.name}!!!
+      </p>
 
       <Filters filters={filters} setFilters={setFilters} onFilter={getData} />
+
       <div className="flex flex-col gap-7 mt-7">
-        {events.map((event: any) => {
-          return <EventCard key={event.id} event={event} />;
-        })}
+        {events.map((event: any) => (
+          <EventCard key={event._id} event={event} />
+        ))}
       </div>
     </div>
   );

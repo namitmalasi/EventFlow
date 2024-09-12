@@ -12,6 +12,7 @@ const LoginPage = () => {
     try { 
       setLoading(true);
       const response = await loginUser(values);
+      console.log(response.data)
       message.success(response.message);
       Cookies.set("token", response.token);
       navigate("/");

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: { 
+    password: {
       type: String,
       required: true,
     },
@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
       default: false,
+    },
+    isActive: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   { timestamps: true }

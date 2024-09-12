@@ -62,6 +62,7 @@ const AdminUsers = () => {
       key: "createdAt",
       render: (createdAt: string) => getDateTimeFormat(createdAt),
     },
+
     {
       title: "Role",
       dataIndex: "isAdmin",
@@ -78,6 +79,26 @@ const AdminUsers = () => {
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
+          </select>
+        );
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "isActive",
+      key: "isActive",
+      render: (isActive: boolean, row: UserType) => {
+        return (
+          <select
+            value={isActive ? "active" : "blocked"}
+            className="border border-solid border-gray-600"
+            onChange={(e) => {
+              const isActiveUpdated = e.target.value === "active";
+              updateuser({ userId: row._id, isActive: isActiveUpdated });
+            }}
+          >
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
           </select>
         );
       },
