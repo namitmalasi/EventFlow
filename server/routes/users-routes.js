@@ -75,4 +75,13 @@ router.get("/get-all-users", validateToken, async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 });
+
+router.put("/update-user", validateToken, async (req, res) => {
+  try {
+    await UserModel.findByIdAndUpdate(req.body.userId, req.body);
+    return res.status(200).json({ message: "User updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
 module.exports = router;
