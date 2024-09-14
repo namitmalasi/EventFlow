@@ -38,12 +38,7 @@ const MenuItems = ({ user }: { user: UserType }) => {
       icon: <List size={iconSize} />,
       isActive: currentPath === "/profile/bookings",
     },
-    {
-      name: "Reports",
-      path: "/reports",
-      icon: <CandlestickChart size={iconSize} />,
-      isActive: currentPath === "/reports",
-    },
+
     { name: "Logout", path: "/logout", icon: <LogOut size={iconSize} /> },
   ];
   const adminMenu = [
@@ -72,12 +67,7 @@ const MenuItems = ({ user }: { user: UserType }) => {
       icon: <UsersRound size={iconSize} />,
       isActive: currentPath.includes("/admin/users"),
     },
-    {
-      name: "Reports",
-      path: "/admin/reports",
-      icon: <CandlestickChart size={iconSize} />,
-      isActive: currentPath.includes("/admin/reports"),
-    },
+
     { name: "Logout", path: "/logout", icon: <LogOut size={iconSize} /> },
   ];
 
@@ -94,7 +84,7 @@ const MenuItems = ({ user }: { user: UserType }) => {
         <h1 className="text-2xl font-bold text-info">
           Event<b className="text-primary font-bold pl-2">Flow</b>
         </h1>
-        <span className="text-sm text-gray-600">{user.name}</span>
+        <span className="text-sm text-gray-600">@{user.name}</span>
       </div>
 
       <div className="flex flex-col gap-10 mt-20">

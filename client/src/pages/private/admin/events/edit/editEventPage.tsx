@@ -16,7 +16,7 @@ const EditEventPage = () => {
       setLoading(true);
       const response = await getEventById(params.id);
       setEventData(response.data);
-    } catch (error) {
+    } catch (error: any) {
       message.error("failed to fetch event");
     } finally {
       setLoading(false);
