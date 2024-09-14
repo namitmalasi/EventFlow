@@ -3,6 +3,8 @@ const router = express.Router();
 const validateToken = require("../middlewares/validate-token");
 const BookingModel = require("../models/booking-model");
 const EventModel = require("../models/event-model");
+const UserModel = require("../models/user-model");
+const sendEmail = require("../helpers/send-email");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 router.post("/create-booking", validateToken, async (req, res) => {
@@ -30,6 +32,16 @@ router.post("/create-booking", validateToken, async (req, res) => {
       ticketTypes: updatedTicketTypes,
     });
 
+    // send email
+    const userObj = await UserModel.findById(req.user._id);
+    const emailPayload = {
+      email: userObj.email,
+      subject: "Booking Confirmation - EventFlow",
+      text: `You have successfully booked ${req.body.ticketsCount} ticket(s) for ${event.name}`,
+      html: ``,
+    };
+
+    await sendEmail(emailPayload);
     return res
       .status(201)
       .json({ message: "Booking created successfully", booking });
@@ -94,6 +106,17 @@ router.post("/cancel-booking", validateToken, async (req, res) => {
       await EventModel.findByIdAndUpdate(eventId, {
         ticketTypes: updatedTicketTypes,
       });
+
+      // send email
+      const userObj = await UserModel.findById(req.user._id);
+      const emailPayload = {
+        email: userObj.email,
+        subject: "Booking Cancellation - EventFlow",
+        text: `You have cancelled your booking for ${event.name}`,
+        html: ``,
+      };
+
+      await sendEmail(emailPayload);
       return res.status(200).json({ message: "Event cancelled successful" });
     } else {
       return res.status(400).json({ message: "Refund Failed" });
