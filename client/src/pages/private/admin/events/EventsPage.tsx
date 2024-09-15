@@ -73,7 +73,7 @@ const EventsPage = () => {
     {
       title: "Actions",
       dataIndex: "actions",
-      render: (text: any, record: any) => {
+      render: (_text: any, record: any) => {
         return (
           <div className="flex gap-5" key={record._id}>
             <Trash2

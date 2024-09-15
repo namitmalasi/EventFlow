@@ -1,13 +1,4 @@
-import {
-  BookCheck,
-  CandlestickChart,
-  Home,
-  Key,
-  List,
-  LogOut,
-  User,
-  UsersRound,
-} from "lucide-react";
+import { BookCheck, Home, List, LogOut, User, UsersRound } from "lucide-react";
 import { UserType } from "../../interfaces";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
