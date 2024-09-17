@@ -6,7 +6,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "https://event-flow-server.vercel.app/"
     }
   ]
 }
