@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://event-flow-server.vercel.app/api/:match*"
+      "destination": "https://eventflow-server-nbyq.onrender.com/api/:match*"
     },
     {
       "source": "/(.*)",
-      "destination": "https://event-flow-server.vercel.app/"
+      "destination": "https://eventflow-server-nbyq.onrender.com/api"
     }
   ]
 }
