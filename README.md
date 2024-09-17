@@ -1,8 +1,14 @@
 # EventFlow
 
+<<<<<<< HEAD
 - Developed a full-stack event management platform using the MERN stack to streamline event creation, organization, and management.
 - Implemented user authentication and event registration features, allowing users to create accounts, browse events, and register with real-time updates.
 - Integrated a secure payment processing system to facilitate seamless transactions for event registrations, enhancing user experience and trust.
+=======
+-Developed a full-stack event management platform using the MERN stack to streamline event creation, organization, and management.
+-Implemented user authentication and event registration features, allowing users to create accounts, browse events, and register with real-time updates.
+-Integrated a secure payment processing system to facilitate seamless transactions for event registrations, enhancing user experience and trust.
+>>>>>>> ceac8e83dd1d19f440bdd58f110145fdc165e644
 
 # Screens
 
